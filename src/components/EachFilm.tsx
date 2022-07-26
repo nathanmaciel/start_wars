@@ -1,8 +1,8 @@
 import React from "react";
 import styled, { isStyledComponent } from "styled-components";
-import { PoligonBox, RectangleBox } from "./SharedStyledElements";
+import { SmallPoligonBox, RectangleBox, GenericInsideText, FilmName, EpisodeNumber } from "./SharedStyledElements";
 
-const FilmBox = styled(PoligonBox)`
+const FilmBox = styled(SmallPoligonBox)`
     margin-top: clamp(15px, 3vw, 30px);
     height: clamp(50px, 9vw, 100px);
     width: clamp(150px, 28vw, 320px);
@@ -21,28 +21,13 @@ const FilmBoxForMobile = styled(FilmBox)`
     height: clamp(120px, 30vw, 200px);
 `
 
-const InsideText = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+const InsideText = styled(GenericInsideText)`
     margin-bottom: clamp(5px, 1vw, 10px);
     cursor: pointer;
     &:hover {
         color: #${({theme}) => theme.fontFocusColor};
         transform: scale(1.1);
     }
-`
-const FilmName =  styled.a`
-    color: inherit;
-    font-size: 20px;
-    font-weight: bold;
-`
-const EpisodeNumber = styled.span`
-    margin-top: 2px;
-    color: inherit;
-    text-transform: uppercase;
-    font-size: 10px;
 `
 const InvertedFilmName = styled(FilmName)`
     transform:scaleX(-1);

@@ -10,7 +10,7 @@ export default function theme(){
         // HEXIDECIMAL values
         logoColor: "FFFFFF",
         fontColor: "FFFFFF",
-        fontFadedColor: "FFFFFF80",
+        fontFadedColor: "FFFFFF60",
         fontFocusColor: "d18c07",
         fontFamily: "'Share', sans-serif",
         inputFontFamily: "'Montserrat', sans-serif",

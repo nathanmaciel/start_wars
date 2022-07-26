@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { isStyledComponent } from "styled-components";
-import { PoligonBox, RectangleBox } from "../SharedStyledElements";
+import { SmallPoligonBox, RectangleBox } from "../SharedStyledElements";
 import theme from '../../utils/globalStyleVariables';
 
 type Film = {
