@@ -16,7 +16,6 @@ const DesktopFilmTitle = styled.div`
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    margin: 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -30,7 +29,6 @@ const MobileTechInfo = styled(SmallPoligonBox)`
     height: clamp(120px, 30vw, 200px);
 `
 const DesktopTechInfo = styled(RectangleBox)`
-    margin: 5px;
     width: clamp(100px, 25vw, 250px);
     height: 90px;
 `
@@ -59,7 +57,6 @@ const MobileOpeningCrawlBox = styled(RectangleBox)`
     }
 `
 const DesktopOpeningCrawl = styled(MobileOpeningCrawlBox)`
-    margin: 5px;
     width: clamp(100px, 28vw, 250px);
     height: 90px;
 `
@@ -72,6 +69,8 @@ const MobileHeaderContainer = styled.div`
 `
 const DesktopHeaderContainer = styled(MobileHeaderContainer)`
     margin-top: 5px;
+    width: clamp(470px, calc(88vw + 20px), 880px);
+    justify-content: space-between;
     flex-direction: row;
 `
 

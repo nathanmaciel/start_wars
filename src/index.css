@@ -6,7 +6,7 @@ body {
   font-family: 'Share', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width: 100vw;
+  width: 100%;
   min-height: 95vh;
   background-color: #141414;
   color:white;
@@ -16,6 +16,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  list-style: none;
 }
 
 code {

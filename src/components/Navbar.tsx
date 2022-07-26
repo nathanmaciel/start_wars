@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Button, Logo } from "./SharedStyledElements";
+import { useNavigate } from "react-router-dom";
 
 const NavLogo = styled(Logo)`
     height: 80px;
@@ -35,16 +36,22 @@ const NavButtonContainer = styled.div`
 
 export default function Navbar(props: any){
 
+    const navigate = useNavigate()
     const isHorizontal = props.isHorizontal
+
+    function logOut(){
+        sessionStorage.removeItem("token")
+        navigate('/login', {replace: true})
+    }
 
     return(
         <React.Fragment>
             {
             isHorizontal && 
             (<NavHorizontalContainer>
-                <NavButton>Films</NavButton>
+                <NavButton onClick={() => navigate('/films', {replace: true})}>Films</NavButton>
                 <NavLogo></NavLogo>
-                <NavButton>Log out</NavButton>
+                <NavButton onClick={()=> logOut()}>Log out</NavButton>
             </NavHorizontalContainer>)
         }
         {
@@ -52,8 +59,8 @@ export default function Navbar(props: any){
             <NavVerticalContainer>
                 <NavLogo></NavLogo>
                 <NavButtonContainer>
-                    <NavButton>Log out</NavButton>
-                    <NavButton>Films</NavButton>
+                    <NavButton onClick={() => navigate('/films', {replace: true})}>Films</NavButton>
+                    <NavButton onClick={()=> logOut()}>Log out</NavButton>
                 </NavButtonContainer>
             </NavVerticalContainer>
         }

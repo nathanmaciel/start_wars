@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.css';
-import AllFilms from './components/page-containers/AllFilms';
-import FilmPage from './components/page-containers/FilmPage';
+import StarRoutes from './routing/router';
 
 function App() {
   return (
     <React.Fragment>
-        <FilmPage />
+        <StarRoutes />
     </React.Fragment>
   );
 }

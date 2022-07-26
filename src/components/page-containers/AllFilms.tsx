@@ -36,8 +36,8 @@ const HorizontalFilmsContainer = styled(FilmsContainer)`
 
 export default function AllFilms(){
 
-    let initialWidth: boolean = window.innerWidth > 600
-
+    
+    const initialWidth: boolean = window.innerWidth > 600
     const [isHorizontal, setIsHorizontal] = React.useState(initialWidth)
     const [filmsList, setFilmsList] = React.useState<Film[]>([])
 
@@ -63,8 +63,6 @@ export default function AllFilms(){
         })
 
     }, [])
-
-    console.log(filmsList)
 
     return(
         <React.Fragment>

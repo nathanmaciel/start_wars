@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Logo, Button } from "../SharedStyledElements";
+import { useNavigate } from "react-router-dom";
 
 //Styled Elements
 
@@ -63,9 +64,11 @@ const LoginButton = styled(Button)`
 
 export default function Login(){
 
+    const navigate = useNavigate()
+
     const [formData, setFormData] = React.useState({
-        user: "",
-        password: ""
+        user: "admin",
+        password: "Admin123!"
     })
 
     const [loginFailure, setLoginFailure] = React.useState(false)
@@ -82,7 +85,9 @@ export default function Login(){
 
     function login(){
         if(formData.user == "admin" && formData.password == "Admin123!"){
-            alert("you're in")
+            let expireTime = (new Date()).getTime() + 1000*60*10
+            sessionStorage.setItem("token", JSON.stringify(expireTime))
+            navigate('/films', { replace: true })
         } else{
             setLoginFailure(true)
             setFormData({

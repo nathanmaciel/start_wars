@@ -1,8 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import FilmPageHeader from "../FilmPageHeader";
+import FilmPageListInfo from "../FilmPageListInfo";
 import Navbar from "../Navbar";
 import { } from "../SharedStyledElements";
+
+const PageInfoContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`
 
 
 
@@ -21,7 +29,10 @@ export default function FilmPage(){
     return(
         <React.Fragment>
             <Navbar isHorizontal={isHorizontal}/>
-            <FilmPageHeader isHorizontal={isHorizontal}></FilmPageHeader>
+            <PageInfoContainer>
+                <FilmPageHeader isHorizontal={isHorizontal}></FilmPageHeader>
+                <FilmPageListInfo isHorizontal={isHorizontal}></FilmPageListInfo>
+            </PageInfoContainer>
         </React.Fragment>
     )
 }
