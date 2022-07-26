@@ -21,6 +21,6 @@ export default function theme(){
         backgroundFadedColor: "0e0e0ed0",
         backgroundOpacity: "0.75",
         borderSize: "0.8px",
-        borderRadius: "10px"
+        borderRadius: "6px"
     }
   };
