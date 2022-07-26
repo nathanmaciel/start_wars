@@ -3,8 +3,9 @@ import styled, { isStyledComponent } from "styled-components";
 import { PoligonBox, RectangleBox } from "./SharedStyledElements";
 
 const FilmBox = styled(PoligonBox)`
+    margin-top: clamp(15px, 3vw, 30px);
     height: clamp(50px, 9vw, 100px);
-    width: clamp(150px, 27vw, 300px);
+    width: clamp(150px, 28vw, 320px);
 `
 
 const InvertedFilmBox = styled(FilmBox)`
@@ -15,15 +16,31 @@ const FilmBoxForMobile = styled(FilmBox)`
     fill='%23${({theme}) => theme.backgroundColor}' 
     fill-opacity='${({theme}) => theme.backgroundOpacity}' 
     stroke='%23${({theme}) => theme.borderColor}' 
-    stroke-width='${({theme}) => parseFloat(theme.borderSize.replace("px", "")) * 2}px'/%3E%3C/svg%3E");
+    stroke-width='${({theme}) => parseFloat(theme.borderSize.replace("px", "")) * 1.8}px'/%3E%3C/svg%3E");
+    width: clamp(310px, 60vw, 680px);
+    height: clamp(120px, 30vw, 200px);
+`
+
+const InsideText = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: clamp(5px, 1vw, 10px);
+    cursor: pointer;
+    &:hover {
+        color: #${({theme}) => theme.fontFocusColor};
+        transform: scale(1.1);
+    }
 `
 const FilmName =  styled.a`
-    color: #${({theme}) => theme.fontColor};
+    color: inherit;
     font-size: 20px;
     font-weight: bold;
 `
 const EpisodeNumber = styled.span`
-    color: #${({theme}) => theme.fontColor};
+    margin-top: 2px;
+    color: inherit;
     text-transform: uppercase;
     font-size: 10px;
 `
@@ -41,20 +58,26 @@ export default function EachFilm(props: any){
         <React.Fragment>
             { (isHorizontal && index % 2 == 1)  &&
                         <FilmBox>
-                            <FilmName>{filmName}</FilmName>
-                            <EpisodeNumber>episode {episode}</EpisodeNumber>
+                            <InsideText>
+                                <FilmName>{filmName}</FilmName>
+                                <EpisodeNumber>episode {episode}</EpisodeNumber>
+                            </InsideText>
                         </FilmBox>
             }
             { (isHorizontal && index % 2 == 0)  &&
                         <InvertedFilmBox>
-                            <InvertedFilmName>{filmName}</InvertedFilmName>
-                            <InvertedEpisodeNumber>episode {episode}</InvertedEpisodeNumber>
+                            <InsideText>
+                                <InvertedFilmName>{filmName}</InvertedFilmName>
+                                <InvertedEpisodeNumber>episode {episode}</InvertedEpisodeNumber>
+                            </InsideText>
                         </InvertedFilmBox>
             }
             {!isHorizontal &&
                 <FilmBoxForMobile>
-                    <FilmName>{filmName}</FilmName>
-                    <EpisodeNumber>episode {episode}</EpisodeNumber>
+                    <InsideText>
+                        <FilmName>{filmName}</FilmName>
+                        <EpisodeNumber>episode {episode}</EpisodeNumber>
+                    </InsideText>
                 </FilmBoxForMobile>
             }
         </React.Fragment>

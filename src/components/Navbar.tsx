@@ -10,7 +10,8 @@ const NavLogo = styled(Logo)`
 
 const NavButton = styled(Button)`
     margin: 0 20px 0 20px;
-    font-size: 12px;
+    font-size: 14px;
+    font-family: ${({theme})=> theme.fontFamily};
     height: 25px;
 `
 
