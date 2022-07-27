@@ -53,11 +53,6 @@ export default function AllFilms(){
         })
     })
 
-    function saveInSessionStorage(){
-        if(storage.length > 0){
-            sessionStorage.setItem("storedFilms", JSON.stringify(storage))
-        }
-    }
 
     React.useEffect(() => {
         if(storedData.length < 6){
@@ -89,11 +84,13 @@ export default function AllFilms(){
             setFilmsList(storedData)
         }
         
-        return saveInSessionStorage()
     }, [])
 
-    console.log(storage)
-
+    React.useEffect(()=> {
+        if(storage.length > 0){
+            sessionStorage.setItem("storedFilms", JSON.stringify(storage))
+        }
+    }, [storage])
 
     return(
         <React.Fragment>

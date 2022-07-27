@@ -87,6 +87,7 @@ export default function FilmPage(){
             })        
     }, [])
 
+
     function handleLists(data: any){
         allListsArray.map((list)=> {
             data[list].map((element: any) => {
@@ -125,8 +126,6 @@ export default function FilmPage(){
 
     React.useEffect(() => {
         getFilmData()
-
-        return saveInSessionStorage()
     }, [getFilmData])
 
     React.useEffect(()=> {
@@ -134,6 +133,10 @@ export default function FilmPage(){
             return Object.entries(lists)
         })
     }, [lists])
+
+    React.useEffect(()=> {
+        saveInSessionStorage()
+    }, [storage])
 
     return(
         <React.Fragment>
