@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { RectangleBox } from "./SharedStyledElements";
+import { LoadingAnimation, RectangleBox } from "./SharedStyledElements";
 
 
 // Mobile Styles
@@ -14,6 +14,7 @@ const VerticalListsContainer = styled.div`
     border-top: ${({theme}) => theme.borderSize} solid #${({theme}) => theme.borderColor};
     border-bottom: ${({theme}) => theme.borderSize} solid #${({theme}) => theme.borderColor};
     width: clamp(310px, 60vw, 620px);
+    min-height: 40vh;
     height: max-content;
     background-repeat: no-repeat;
     background-position: center;
@@ -34,15 +35,18 @@ const ListTitle =  styled.h4`
     color: #${({theme}) => theme.fontColor};
 `
 const List = styled.u`
+    margin-top: 5px;
+    width: 80%;
     display: flex;
     flex-direction:column;
-    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    text-align: center;
     text-decoration: none;
 `
 const ListItem = styled.li`
     font-family: ${({theme})=> theme.fontFamily};
+    color: inherit;
     font-size: 12px;
     margin-top: 2px;
     padding: 0;
@@ -62,7 +66,7 @@ const HorizontalListsContainer = styled.div`
     stroke-width='${({theme}) => parseFloat(theme.borderSize.replace("px", "")) * 1.6}px'/%3E%3C/svg%3E");
     margin: 20px 0 40px 0;
     background-size: 100% 100%;
-    height: 500px;
+    height: max-content;
     width: clamp(470px, calc(88vw + 20px), 880px);
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -70,11 +74,17 @@ const HorizontalListsContainer = styled.div`
 const ListsInsideContainer = styled.div`
     display: flex;
     flex-direction:column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
 `
 const HorizontalListTitle = styled(ListTitleBox)`
     width: clamp(200px, 40vw, 400px);
+`
+
+const EachListContainer = styled.div`
+    display: flex;
+    flex-direction:column;
+    align-items: center
 `
 
 
@@ -87,6 +97,8 @@ export default function FilmPageListInfo(props: any){
     const [starships, setStarships] = React.useState<any[]>([])
     const [vehicles, setVehicles] = React.useState<any[]>([])
     const [species, setSpecies] = React.useState<any[]>([])
+
+    const [contHeight, setContHeight] = React.useState(300)
 
     React.useEffect(()=> {
         if(info.length > 1){
@@ -117,65 +129,102 @@ export default function FilmPageListInfo(props: any){
         }
     },[info])
 
+    React.useEffect(() => {
+        if( characters.length > 0 &&
+            planets.length > 0 &&
+            starships.length > 0 &&
+            vehicles.length > 0 &&
+            species.length > 0){
+                let height1 = Math.ceil(characters.length/2)*16 + Math.ceil(planets.length/2)*16 + 200
+                let height2 = Math.ceil(starships.length/2)*16 + Math.ceil(vehicles.length/2)*16 + Math.ceil(species.length/2)*16 + 300
+                let height = Math.max(height1, height2)
+                console.log(height1)
+                console.log(height2)
+                console.log(height)
+                if(height > 300){
+                    setContHeight(height)
+                }
+            }
+
+    }, [characters, planets, starships, vehicles, species])
+
     const VerticalFeatureList = (title: string, array: string[]) => {
         return (
             <React.Fragment>
                 <ListTitleBox>
                 <ListTitle>{title}</ListTitle>
                 </ListTitleBox>
-            <List>
-                {array.map((el, index)=> {
-                    return(
-                        <ListItem key={index}>{el}</ListItem>
-                    )
-                })}
-            </List>
+                <List>
+                    {array.map((el, index)=> {
+                        return(
+                            <ListItem key={index}>{el}</ListItem>
+                        )
+                    })}
+                </List>
             </React.Fragment>
         )
     }
 
     const HorizontalFeatureList = (title: string, array: string[]) => {
+        let height = Math.ceil(array.length/2)*16
         return (
-            <React.Fragment>
+            <EachListContainer>
                 <HorizontalListTitle>
                     <ListTitle>{title}</ListTitle>
                 </HorizontalListTitle>
-            <List>
-                {array.map((el, index)=> {
-                    return(
-                        <ListItem key={index}>{el}</ListItem>
-                    )
-                })}
-            </List>
-            </React.Fragment>
+                <List style={{height: `${height}px`}}>
+                    {array.map((el, index)=> {
+                        return(
+                            <ListItem key={index}>{el}</ListItem>
+                        )
+                    })}
+                </List>
+            </EachListContainer>
         )
     }
+
+    console.log(contHeight)
 
     return(
         <React.Fragment>
             {
                 !isHorizontal &&
                 <VerticalListsContainer>
-                    {VerticalFeatureList('Characters', characters)}
-                    {VerticalFeatureList('Planets', planets)}
-                    {VerticalFeatureList('Starships', starships)}
-                    {VerticalFeatureList('Vehicles', vehicles)}
-                    {VerticalFeatureList('Species', species)}
-                    <FinalSpace></FinalSpace>                  
+                    {characters.length === 0 && <LoadingAnimation
+                                                style={{ transform: 'translate(0, 15vh)',height: '100px'}}
+                                                ></LoadingAnimation>}
+                    { characters.length > 0 &&
+                        <React.Fragment>
+                            {VerticalFeatureList('Characters', characters)}
+                            {VerticalFeatureList('Planets', planets)}
+                            {VerticalFeatureList('Starships', starships)}
+                            {VerticalFeatureList('Vehicles', vehicles)}
+                            {VerticalFeatureList('Species', species)}
+                            <FinalSpace></FinalSpace> 
+                        </React.Fragment>
+                    }                 
                 </VerticalListsContainer>
             }
             {
                 isHorizontal &&
-                <HorizontalListsContainer>
-                    <ListsInsideContainer>
-                        {HorizontalFeatureList('Characters', characters)}
-                        {HorizontalFeatureList('Planets', planets)}
-                    </ListsInsideContainer>
-                    <ListsInsideContainer>
-                    {HorizontalFeatureList('Starships', starships)}
-                        {HorizontalFeatureList('Vehicles', vehicles)}
-                        {HorizontalFeatureList('Species', species)} 
-                    </ListsInsideContainer>
+                <HorizontalListsContainer style={{height: `${contHeight}px`}}>
+                    {characters.length === 0 && <LoadingAnimation 
+                                                style={{ transform: 'translate(clamp(200px, calc(42vw + 20px), 380px), 120px)'}}
+                                                ></LoadingAnimation>}
+                    {
+                        characters.length > 0 &&
+                        <React.Fragment>
+                            <ListsInsideContainer>
+                            {HorizontalFeatureList('Characters', characters)}
+                            {HorizontalFeatureList('Planets', planets)}
+                        </ListsInsideContainer>
+                        <ListsInsideContainer>
+                            {HorizontalFeatureList('Starships', starships)}
+                            {HorizontalFeatureList('Vehicles', vehicles)}
+                            {HorizontalFeatureList('Species', species)} 
+                        </ListsInsideContainer>
+                        </React.Fragment>
+                    }
                 </HorizontalListsContainer>
             }
             

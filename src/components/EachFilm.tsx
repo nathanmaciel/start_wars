@@ -44,6 +44,7 @@ export default function EachFilm(props: any){
     const navigate = useNavigate()
 
     function handleClick(url: string){
+        console.log(url)
         let adress = url.replace("https://swapi.dev/api/films", "")
         navigate("/films" + adress, {replace: true})
     }

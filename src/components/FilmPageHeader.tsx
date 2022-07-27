@@ -93,7 +93,7 @@ export default function FilmPageHeader(props: any){
     let title = ""
     let release_date = ""
 
-    if(info != undefined){
+    if(info !== undefined){
         director = info.director
         try{
             opening_crawl = info.opening_crawl.split("\r\n")
@@ -128,7 +128,7 @@ export default function FilmPageHeader(props: any){
         <React.Fragment>
             <OpeningCrawlSpan key="100"><br/></OpeningCrawlSpan>
             {opening_crawl.map((element, index) => {
-                if(element == ""){
+                if(element === ""){
                     return <OpeningCrawlSpan key={index}><br/></OpeningCrawlSpan>
                 } else {
                     return <OpeningCrawlSpan key={index}>{element}</OpeningCrawlSpan>
@@ -148,10 +148,10 @@ export default function FilmPageHeader(props: any){
                         { title?  Title : <LoadingAnimation></LoadingAnimation>}
                     </MobileFilmTitle>
                     <MobileTechInfo>
-                        { title && TechInfo}
+                        { title ? TechInfo : <LoadingAnimation style={{transform: 'translate(0, 20%)'}}></LoadingAnimation>}
                     </MobileTechInfo>
                     <MobileOpeningCrawlBox>
-                        {title && OpeningCrawl}
+                        {title ? OpeningCrawl : <LoadingAnimation style={{transform: 'translate(0, 20px)'}}></LoadingAnimation>}
                     </MobileOpeningCrawlBox>
                 </MobileHeaderContainer>
             }

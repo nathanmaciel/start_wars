@@ -1,16 +1,14 @@
 import React from "react";
-import styled, { isStyledComponent } from "styled-components";
-import { SmallPoligonBox, RectangleBox } from "../SharedStyledElements";
-import theme from '../../utils/globalStyleVariables';
+import styled from "styled-components";
+import { LoadingAnimation, RectangleBox } from "../SharedStyledElements";
+import EachFilm from "../EachFilm";
+import Navbar from "../Navbar";
 
 type Film = {
     name: string;
     url: string;
     episode: number
 }
-
-const Navbar = React.lazy(() => import('../Navbar'))
-const EachFilm = React.lazy(() => import('../EachFilm'))
 
 const PageTitleBox = styled(RectangleBox)`
     height: 40px;
@@ -30,8 +28,15 @@ const FilmsContainer = styled.div`
     flex-wrap: wrap;
     justify-content: space-between;
 `
-const HorizontalFilmsContainer = styled(FilmsContainer)`
+const VerticalFilmsContainer = styled(FilmsContainer)`
     flex-wrap: no-wrap;
+`
+const AllFilmsLoagindContainer = styled.div`
+    width: clamp(310px, 60vw, 680px);
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 
 export default function AllFilms(){
@@ -49,7 +54,9 @@ export default function AllFilms(){
 
     React.useEffect(() => {
         fetch("https://swapi.dev/api/films/")
-        .then(resp => resp.json())
+        .then(resp => {
+            return resp.json()
+        })
         .then(data => {
             setFilmsList((prevValue) => {
                 return data.results.map((element: any) => {
@@ -64,12 +71,16 @@ export default function AllFilms(){
 
     }, [])
 
+
     return(
         <React.Fragment>
             <Navbar isHorizontal={isHorizontal} />
             <PageTitleBox>
                 <PageTitle>Films</PageTitle>
             </PageTitleBox>
+            { (isHorizontal && filmsList.length === 0) && 
+                <AllFilmsLoagindContainer><LoadingAnimation></LoadingAnimation></AllFilmsLoagindContainer>
+            }      
             { isHorizontal && <FilmsContainer>
                 {
                     filmsList.map((element, index) => {
@@ -86,8 +97,11 @@ export default function AllFilms(){
                 }
             </FilmsContainer>
             }
+            { (!isHorizontal && filmsList.length === 0) && 
+                <AllFilmsLoagindContainer><LoadingAnimation></LoadingAnimation></AllFilmsLoagindContainer>
+            }   
             { !isHorizontal && 
-            <HorizontalFilmsContainer>
+            <VerticalFilmsContainer>
                 {
                     filmsList.map((element, index) => {
                         return(
@@ -95,12 +109,13 @@ export default function AllFilms(){
                             key={index}
                             isHorizontal={isHorizontal} 
                             filmName={element.name} 
+                            url={element.url}
                             episode={element.episode} 
                             index={index} />
                         )
                     })
                 }
-            </HorizontalFilmsContainer>
+            </VerticalFilmsContainer>
             }
         </React.Fragment>
     )
