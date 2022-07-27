@@ -42,14 +42,14 @@ const AllFilmsLoagindContainer = styled.div`
 export default function AllFilms(){
 
     let storedData = JSON.parse(sessionStorage.getItem("storedFilms") || JSON.stringify([]))
-    const initialWidth: boolean = window.innerWidth > 600
+    const initialWidth: boolean = window.innerWidth > 700
     const [isHorizontal, setIsHorizontal] = React.useState(initialWidth)
     const [filmsList, setFilmsList] = React.useState<Film[]>([])
     const [storage, setStorage] = React.useState<Film[]>([])
 
     window.addEventListener('resize', () => {
         setIsHorizontal((prevValue) => {
-            return window.innerWidth > 600
+            return window.innerWidth > 700
         })
     })
 

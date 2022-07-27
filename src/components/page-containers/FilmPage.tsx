@@ -47,7 +47,7 @@ export default function FilmPage(){
 
     let storedData = JSON.parse(sessionStorage.getItem("storedData") || JSON.stringify(firstAcess))
 
-    const initialWidth: boolean = window.innerWidth > 600
+    const initialWidth: boolean = window.innerWidth > 700
 
     const [isHorizontal, setIsHorizontal] = React.useState(initialWidth)
 
@@ -65,7 +65,7 @@ export default function FilmPage(){
 
     window.addEventListener('resize', () => {
         setIsHorizontal((prevValue) => {
-            return window.innerWidth > 600
+            return window.innerWidth > 700
         })
     })
 
