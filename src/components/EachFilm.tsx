@@ -17,7 +17,7 @@ const FilmBoxForMobile = styled(FilmBox)`
     fill='%23${({theme}) => theme.backgroundColor}' 
     fill-opacity='${({theme}) => theme.backgroundOpacity}' 
     stroke='%23${({theme}) => theme.borderColor}' 
-    stroke-width='${({theme}) => parseFloat(theme.borderSize.replace("px", "")) * 1.8}px'/%3E%3C/svg%3E");
+    stroke-width='${({theme}) => parseFloat(theme.borderSize.replace("px", "")) * 1.4}px'/%3E%3C/svg%3E");
     width: clamp(310px, 60vw, 680px);
     height: clamp(120px, 30vw, 200px);
 `
@@ -39,6 +39,16 @@ const InvertedEpisodeNumber = styled(EpisodeNumber)`
 
 export default function EachFilm(props: any){
 
+    const initialWidth = window.innerWidth
+
+    const [width, setWidth] = React.useState(initialWidth)
+
+    window.addEventListener('resize', () => {
+        setWidth((prevValue) => {
+            return window.innerWidth
+        })
+    })
+
     const {filmName, episode, isHorizontal, index, url} = props
 
     const navigate = useNavigate()
@@ -54,7 +64,7 @@ export default function EachFilm(props: any){
             { (isHorizontal && index % 2 == 1)  &&
                         <FilmBox>
                             <InsideText onClick={() => handleClick(url)}>
-                                <FilmName>{filmName}</FilmName>
+                                <FilmName style={{fontSize: `${width > 850 ? 1.2: 0.9}rem`}}>{filmName}</FilmName>
                                 <EpisodeNumber>episode {episode}</EpisodeNumber>
                             </InsideText>
                         </FilmBox>
@@ -62,7 +72,7 @@ export default function EachFilm(props: any){
             { (isHorizontal && index % 2 == 0)  &&
                         <InvertedFilmBox>
                             <InsideText onClick={() => handleClick(url)}>
-                                <InvertedFilmName>{filmName}</InvertedFilmName>
+                                <InvertedFilmName style={{fontSize: `${width > 850 ? 1.2: 0.9}rem`}}>{filmName}</InvertedFilmName>
                                 <InvertedEpisodeNumber>episode {episode}</InvertedEpisodeNumber>
                             </InsideText>
                         </InvertedFilmBox>

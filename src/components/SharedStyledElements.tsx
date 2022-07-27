@@ -56,8 +56,9 @@ export const GenericInsideText = styled.div`
     width: 90%;
 `
 export const FilmName =  styled.a`
+  font-family: ${({theme})=> theme.fontFamily}
     color: inherit;
-    font-size: 20px;
+    font-size: 1.2rem;
     font-weight: bold;
 `
 export const EpisodeNumber = styled.span`
