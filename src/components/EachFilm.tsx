@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled, { isStyledComponent } from "styled-components";
 import { SmallPoligonBox, RectangleBox, GenericInsideText, FilmName, EpisodeNumber } from "./SharedStyledElements";
 
@@ -37,13 +38,21 @@ const InvertedEpisodeNumber = styled(EpisodeNumber)`
 `
 
 export default function EachFilm(props: any){
-    const {filmName, episode, isHorizontal, index} = props
+
+    const {filmName, episode, isHorizontal, index, url} = props
+
+    const navigate = useNavigate()
+
+    function handleClick(url: string){
+        let adress = url.replace("https://swapi.dev/api/films", "")
+        navigate("/films" + adress, {replace: true})
+    }
 
     return(
         <React.Fragment>
             { (isHorizontal && index % 2 == 1)  &&
                         <FilmBox>
-                            <InsideText>
+                            <InsideText onClick={() => handleClick(url)}>
                                 <FilmName>{filmName}</FilmName>
                                 <EpisodeNumber>episode {episode}</EpisodeNumber>
                             </InsideText>
@@ -51,7 +60,7 @@ export default function EachFilm(props: any){
             }
             { (isHorizontal && index % 2 == 0)  &&
                         <InvertedFilmBox>
-                            <InsideText>
+                            <InsideText onClick={() => handleClick(url)}>
                                 <InvertedFilmName>{filmName}</InvertedFilmName>
                                 <InvertedEpisodeNumber>episode {episode}</InvertedEpisodeNumber>
                             </InsideText>
@@ -59,7 +68,7 @@ export default function EachFilm(props: any){
             }
             {!isHorizontal &&
                 <FilmBoxForMobile>
-                    <InsideText>
+                    <InsideText onClick={() => handleClick(url)}>
                         <FilmName>{filmName}</FilmName>
                         <EpisodeNumber>episode {episode}</EpisodeNumber>
                     </InsideText>

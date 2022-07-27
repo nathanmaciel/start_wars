@@ -67,3 +67,51 @@ export const EpisodeNumber = styled.span`
     font-size: 10px;
 `
 
+export const LoadingAnimation = styled.div`
+    color:transparent;
+    height:30%;
+    left: 0%;
+    overflow-x:hidden;
+    position:relative;
+    text-align:center;
+    top:3%;
+    width:100px;
+    &:before {
+      animation:left-to-right 3s alternate infinite linear;
+      background-image:linear-gradient(to right, transparent, #${({theme}) => theme.borderColor}, transparent);
+      // bottom:0;
+      content:"";
+      height:5vh;
+      left:0;
+      overflow:hidden;
+      position:absolute;
+      right:0;
+      top:0;
+    }
+    &:after {
+      background-image:repeating-linear-gradient(
+        90deg,
+        white,
+        tranparent 1vw,
+        transparent 1vw,
+        transparent 10vw
+      );
+      content:"";
+      height:5vh;
+      left:0;
+      overflow:hidden;
+      position:relative;
+      right:0;
+      top:0;
+    }
+
+  
+  @keyframes left-to-right {
+    0% {
+      transform:translateX(-100%);
+    }
+    100% {
+      transform:translateX(100%);
+    }
+`
+

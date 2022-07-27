@@ -5,7 +5,7 @@ import StarRoutes from './routing/router';
 function App() {
   return (
     <React.Fragment>
-        <StarRoutes />
+        <StarRoutes/>
     </React.Fragment>
   );
 }

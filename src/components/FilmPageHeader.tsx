@@ -1,6 +1,7 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { EpisodeNumber, FilmName, GenericInsideText, SmallPoligonBox, RectangleBox } from "./SharedStyledElements";
+import { EpisodeNumber, FilmName, GenericInsideText, SmallPoligonBox, RectangleBox, LoadingAnimation } from "./SharedStyledElements";
 
 const MobileFilmTitle = styled(RectangleBox)`
     margin: 10px;
@@ -35,6 +36,7 @@ const DesktopTechInfo = styled(RectangleBox)`
 const TechInfoText = styled.p`
     width: 90%;
     font-weight: 200;
+    font-size: 14px;
     color: #${({theme}) => theme.fontColor};
 `
 const MobileOpeningCrawlBox = styled(RectangleBox)`
@@ -74,31 +76,66 @@ const DesktopHeaderContainer = styled(MobileHeaderContainer)`
     flex-direction: row;
 `
 
-export default function FilmPageHeader(props: any){
+const OpeningCrawlSpan = styled.span`
+    font-size: 12px;
+    text-transform: uppercase;
+`
 
-    const {isHorizontal} = props
+export default function FilmPageHeader(props: any){
+    const navigate = useNavigate()
+
+    const {isHorizontal, info} = props
+
+    let director = ""
+    let opening_crawl : string[] = []
+    let episode_id = ""
+    let producer= ""
+    let title = ""
+    let release_date = ""
+
+    if(info != undefined){
+        director = info.director
+        try{
+            opening_crawl = info.opening_crawl.split("\r\n")
+        } catch(err){
+            navigate("/films", {replace: true})
+        }
+        episode_id = info.episode_id
+        producer= info.producer
+        title = info.title
+        let date = new Date((new Date(info.release_date)).getTime() + 1000*60*60*12)
+        release_date = new Intl.DateTimeFormat('en-US').format(date)
+    }
 
     const Title = (
         <GenericInsideText>
-            <FilmName>Film 1</FilmName>
-            <EpisodeNumber>Episode 1</EpisodeNumber>
+            <FilmName>{title}</FilmName>
+            <EpisodeNumber>episode {episode_id}</EpisodeNumber>
         </GenericInsideText>
     )
 
     const TechInfo = (
         <GenericInsideText>
             <TechInfoText>
-                <b>Director:</b> Director <br/>
-                <b>Producer:</b> Producer <br/>
-                <b>Release date:</b> 01/01/1970
+                <b>Director:</b> {director} <br/>
+                <b>Producer{producer.includes(",")? "s" : ""}:</b> {producer} <br/>
+                <b>Release date:</b> {release_date}
             </TechInfoText>
         </GenericInsideText>
     )
 
     const OpeningCrawl = (
         <React.Fragment>
-            <p style={{width: '80%'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa cumque minus deserunt laborum deleniti reiciendis non. Et tempore sit reiciendis obcaecati molestias, mollitia eius commodi eveniet. Odit consectetur dolore tempora!</p>
-            <p style={{width: '80%'}}>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores aliquid quam, maxime, recusandae quod fugit quidem accusantium vero aperiam rerum nisi aspernatur eaque consectetur natus? Et quia aspernatur minima praesentium.</p>
+            <OpeningCrawlSpan key="100"><br/></OpeningCrawlSpan>
+            {opening_crawl.map((element, index) => {
+                if(element == ""){
+                    return <OpeningCrawlSpan key={index}><br/></OpeningCrawlSpan>
+                } else {
+                    return <OpeningCrawlSpan key={index}>{element}</OpeningCrawlSpan>
+                }
+            }
+            )}
+            <OpeningCrawlSpan key="101"><br/></OpeningCrawlSpan>
         </React.Fragment>
     )
 
@@ -108,13 +145,13 @@ export default function FilmPageHeader(props: any){
                 !isHorizontal &&
                 <MobileHeaderContainer>
                     <MobileFilmTitle>
-                        {Title}
+                        { title?  Title : <LoadingAnimation></LoadingAnimation>}
                     </MobileFilmTitle>
                     <MobileTechInfo>
-                        {TechInfo}
+                        { title && TechInfo}
                     </MobileTechInfo>
                     <MobileOpeningCrawlBox>
-                        {OpeningCrawl}
+                        {title && OpeningCrawl}
                     </MobileOpeningCrawlBox>
                 </MobileHeaderContainer>
             }
@@ -122,13 +159,13 @@ export default function FilmPageHeader(props: any){
                 isHorizontal &&
                 <DesktopHeaderContainer>
                     <DesktopTechInfo>
-                        {TechInfo}
+                        { title && TechInfo}
                     </DesktopTechInfo>
                     <DesktopFilmTitle>
-                        {Title}
+                        { title?  Title : <LoadingAnimation></LoadingAnimation>}
                     </DesktopFilmTitle>
                     <DesktopOpeningCrawl>
-                        {OpeningCrawl}
+                        { title && OpeningCrawl}
                     </DesktopOpeningCrawl>
                 </DesktopHeaderContainer>
             }

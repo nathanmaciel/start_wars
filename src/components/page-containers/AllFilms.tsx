@@ -79,6 +79,7 @@ export default function AllFilms(){
                             isHorizontal={isHorizontal} 
                             filmName={element.name} 
                             episode={element.episode} 
+                            url={element.url}
                             index={index} />
                         )
                     })
