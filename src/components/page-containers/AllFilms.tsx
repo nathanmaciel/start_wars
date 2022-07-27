@@ -30,6 +30,7 @@ const FilmsContainer = styled.div`
 `
 const VerticalFilmsContainer = styled(FilmsContainer)`
     flex-wrap: no-wrap;
+    justify-content: space-evenly;
 `
 const AllFilmsLoagindContainer = styled.div`
     width: clamp(310px, 60vw, 680px);

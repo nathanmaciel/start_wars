@@ -17,8 +17,8 @@ const FilmBoxForMobile = styled(FilmBox)`
     fill='%23${({theme}) => theme.backgroundColor}' 
     fill-opacity='${({theme}) => theme.backgroundOpacity}' 
     stroke='%23${({theme}) => theme.borderColor}' 
-    stroke-width='${({theme}) => parseFloat(theme.borderSize.replace("px", "")) * 1.4}px'/%3E%3C/svg%3E");
-    width: clamp(310px, 60vw, 680px);
+    stroke-width='${({theme}) => parseFloat(theme.borderSize.replace("px", "")) * 1.3}px'/%3E%3C/svg%3E");
+    width: clamp(307px, 59vw, 680px);
     height: clamp(120px, 30vw, 200px);
 `
 
