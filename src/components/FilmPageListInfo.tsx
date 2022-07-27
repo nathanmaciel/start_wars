@@ -138,9 +138,6 @@ export default function FilmPageListInfo(props: any){
                 let height1 = Math.ceil(characters.length/2)*16 + Math.ceil(planets.length/2)*16 + 200
                 let height2 = Math.ceil(starships.length/2)*16 + Math.ceil(vehicles.length/2)*16 + Math.ceil(species.length/2)*16 + 300
                 let height = Math.max(height1, height2)
-                console.log(height1)
-                console.log(height2)
-                console.log(height)
                 if(height > 300){
                     setContHeight(height)
                 }
@@ -183,17 +180,15 @@ export default function FilmPageListInfo(props: any){
         )
     }
 
-    console.log(contHeight)
-
     return(
         <React.Fragment>
             {
                 !isHorizontal &&
                 <VerticalListsContainer>
-                    {characters.length === 0 && <LoadingAnimation
+                    {(characters.length === 0 && starships.length === 0) && <LoadingAnimation
                                                 style={{ transform: 'translate(0, 15vh)',height: '100px'}}
                                                 ></LoadingAnimation>}
-                    { characters.length > 0 &&
+                    { (characters.length > 0 && starships.length > 0) &&
                         <React.Fragment>
                             {VerticalFeatureList('Characters', characters)}
                             {VerticalFeatureList('Planets', planets)}
@@ -208,11 +203,11 @@ export default function FilmPageListInfo(props: any){
             {
                 isHorizontal &&
                 <HorizontalListsContainer style={{height: `${contHeight}px`}}>
-                    {characters.length === 0 && <LoadingAnimation 
+                    {(characters.length === 0 && starships.length === 0) && <LoadingAnimation 
                                                 style={{ transform: 'translate(clamp(200px, calc(42vw + 20px), 380px), 120px)'}}
                                                 ></LoadingAnimation>}
                     {
-                        characters.length > 0 &&
+                        (characters.length > 0 && starships.length > 0) &&
                         <React.Fragment>
                             <ListsInsideContainer>
                             {HorizontalFeatureList('Characters', characters)}

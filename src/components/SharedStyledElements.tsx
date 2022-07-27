@@ -72,6 +72,7 @@ export const LoadingAnimation = styled.div`
     height:30%;
     left: 0%;
     overflow-x:hidden;
+    overflow-y:hidden;
     position:relative;
     text-align:center;
     top:3%;

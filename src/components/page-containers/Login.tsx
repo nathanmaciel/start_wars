@@ -67,8 +67,8 @@ export default function Login(){
     const navigate = useNavigate()
 
     const [formData, setFormData] = React.useState({
-        user: "admin",
-        password: "Admin123!"
+        user: "",
+        password: ""
     })
 
     const [loginFailure, setLoginFailure] = React.useState(false)
@@ -96,6 +96,12 @@ export default function Login(){
             })
         }
     }
+
+    window.addEventListener('keyup', (event)=> {
+        if(event.key === "Enter"){
+            login()
+        }
+    })
 
     return(
         <LoginPage>

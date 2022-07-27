@@ -2,6 +2,7 @@ import React, { Suspense }  from "react";
 import { BrowserRouter, Route, Routes, Navigate, unstable_HistoryRouter as HistoryRouter } from 'react-router-dom'
 import ProtectedRoutes from "./ProtectedRoutes";
 import { createBrowserHistory } from "history";
+import PageFiller from "../components/page-containers/PageFiller";
 
 const history =  createBrowserHistory();
 
@@ -14,7 +15,7 @@ export default function StarRoutes(){
     return(
         <React.Fragment>
             <HistoryRouter history={history}>
-                    <Suspense fallback={<h1>carregando</h1>}>
+                    <Suspense fallback={<PageFiller type="loading"/>}>
                         <Routes>
                             <Route path="*" element={<Navigate to="/films" replace />} />
                             <Route path="/" element={<Navigate to="/login" replace={true}/>}/>

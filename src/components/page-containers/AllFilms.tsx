@@ -41,10 +41,11 @@ const AllFilmsLoagindContainer = styled.div`
 
 export default function AllFilms(){
 
-    
+    let storedData = JSON.parse(sessionStorage.getItem("storedFilms") || JSON.stringify([]))
     const initialWidth: boolean = window.innerWidth > 600
     const [isHorizontal, setIsHorizontal] = React.useState(initialWidth)
     const [filmsList, setFilmsList] = React.useState<Film[]>([])
+    const [storage, setStorage] = React.useState<Film[]>([])
 
     window.addEventListener('resize', () => {
         setIsHorizontal((prevValue) => {
@@ -52,24 +53,46 @@ export default function AllFilms(){
         })
     })
 
+    function saveInSessionStorage(){
+        if(storage.length > 0){
+            sessionStorage.setItem("storedFilms", JSON.stringify(storage))
+        }
+    }
+
     React.useEffect(() => {
-        fetch("https://swapi.dev/api/films/")
-        .then(resp => {
-            return resp.json()
-        })
-        .then(data => {
-            setFilmsList((prevValue) => {
-                return data.results.map((element: any) => {
-                    return {
-                        name: element.title,
-                        url: element.url,
-                        episode: element.episode_id
-                    }
+        if(storedData.length < 6){
+            fetch("https://swapi.dev/api/films/")
+            .then(resp => {
+                return resp.json()
+            })
+            .then(data => {
+                setFilmsList((prevValue) => {
+                    return data.results.map((element: any) => {
+                        return {
+                            name: element.title,
+                            url: element.url,
+                            episode: element.episode_id
+                        }
+                    })
+                })
+                setStorage((prevValue)=> {
+                    return data.results.map((element: any) => {
+                        return {
+                            name: element.title,
+                            url: element.url,
+                            episode: element.episode_id
+                        }
+                    })
                 })
             })
-        })
-
+        } else {
+            setFilmsList(storedData)
+        }
+        
+        return saveInSessionStorage()
     }, [])
+
+    console.log(storage)
 
 
     return(

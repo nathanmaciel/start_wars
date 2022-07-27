@@ -91,7 +91,6 @@ export default function FilmPage(){
         allListsArray.map((list)=> {
             data[list].map((element: any) => {
                 if(storedData[element.replace("https://swapi.dev/api/", "")] == undefined){
-                    console.log("got from fetch")
                     fetch(element).then(resp => resp.json())
                     .then((elemData) => {
                         setLists((prevLists) => {
@@ -108,7 +107,6 @@ export default function FilmPage(){
                         })
                     })
                 } else {
-                    console.log("got from session")
                     setLists((prevLists) => {
                         return{
                             ...prevLists,
