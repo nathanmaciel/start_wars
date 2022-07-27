@@ -136,7 +136,7 @@ export default function FilmPageListInfo(props: any){
             vehicles.length > 0 &&
             species.length > 0){
                 let height1 = Math.ceil(characters.length/2)*16 + Math.ceil(planets.length/2)*16 + 200
-                let height2 = Math.ceil(starships.length/2)*16 + Math.ceil(vehicles.length/2)*16 + Math.ceil(species.length/2)*16 + 300
+                let height2 = Math.ceil(starships.length/2)*16 + Math.ceil(vehicles.length/2)*16 + Math.ceil(species.length/2)*16 + 320
                 let height = Math.max(height1, height2)
                 if(height > 300){
                     setContHeight(height)
