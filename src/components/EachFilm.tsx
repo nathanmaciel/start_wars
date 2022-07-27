@@ -7,6 +7,8 @@ const FilmBox = styled(SmallPoligonBox)`
     margin-top: clamp(15px, 3vw, 30px);
     height: clamp(50px, 9vw, 100px);
     width: clamp(150px, 28vw, 320px);
+    margin-left: 1px;
+    margin-right: 1px;
 `
 
 const InvertedFilmBox = styled(FilmBox)`

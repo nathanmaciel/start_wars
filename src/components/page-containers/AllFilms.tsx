@@ -23,7 +23,9 @@ const PageTitle = styled.h2`
 `
 const FilmsContainer = styled.div`
     width: clamp(310px, 60vw, 680px);
+    padding-left: 1px;
     height: max-content;
+    margin-bottom: 30px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
