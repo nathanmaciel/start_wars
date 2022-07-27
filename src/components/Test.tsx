@@ -37,3 +37,63 @@ export default function Test(){
         </React.Fragment>
     )
 }
+
+
+// function addToLists(list: string, name: string){
+//     let includes = false
+//     switch(list){
+//         case "characters":
+//             if(!lists.characters.includes(name)){
+//                 setLists((prevLists) => {
+//                     return {
+//                         ...prevLists,
+//                         [list]: [...prevLists.characters, name]
+//                     }
+//                 })
+//             }
+//             break;
+//         case "planets":
+//             if(!lists.planets.includes(name)){
+//                 setLists((prevLists) => {
+//                     return {
+//                         ...prevLists,
+//                         [list]: [...prevLists.planets, name]
+//                     }
+//                 })
+//             }
+//             break;
+//         case "starships":
+//             if(!lists.starships.includes(name)){
+//                 setLists((prevLists) => {
+//                     return {
+//                         ...prevLists,
+//                         [list]: [...prevLists.starships, name]
+//                     }
+//                 })
+//             }
+//             break;
+//         case "vehicles":
+//             if(!lists.vehicles.includes(name)){
+//                 setLists((prevLists) => {
+//                     return {
+//                         ...prevLists,
+//                         [list]: [...prevLists.vehicles, name]
+//                     }
+//                 })
+//             }
+//             break;
+//         case "species":
+//             if(!lists.species.includes(name)){
+//                 setLists((prevLists) => {
+//                     return {
+//                         ...prevLists,
+//                         [list]: [...prevLists.species, name]
+//                     }
+//                 })
+//             }
+//             break;
+// //     }
+
+    
+    
+// }

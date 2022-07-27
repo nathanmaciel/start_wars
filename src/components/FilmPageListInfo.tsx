@@ -48,6 +48,9 @@ const ListItem = styled.li`
     padding: 0;
     list-style: none;
 `
+const FinalSpace = styled.div`
+    height: 10px;
+`
 
 // Desktop styles
 
@@ -77,37 +80,72 @@ const HorizontalListTitle = styled(ListTitleBox)`
 
 export default function FilmPageListInfo(props: any){
 
-    const {isHorizontal} = props
+    const {isHorizontal, info} = props
 
-    const VerticalFeatureList = (title: string) => {
+    const [characters, setCharacters] = React.useState<any[]>([])
+    const [planets, setPlanets] = React.useState<any[]>([])
+    const [starships, setStarships] = React.useState<any[]>([])
+    const [vehicles, setVehicles] = React.useState<any[]>([])
+    const [species, setSpecies] = React.useState<any[]>([])
+
+    React.useEffect(()=> {
+        if(info.length > 1){
+            for(let element of info){
+                if(element[0].includes("people") && !characters.includes(element[1])){
+                    setCharacters((prev) => {
+                        return [... prev, element[1]]
+                    })
+                } else if(element[0].includes("planets") && !planets.includes(element[1])){
+                    setPlanets((prev) => {
+                        return [... prev, element[1]]
+                    })
+                } else if(element[0].includes("starships") && !starships.includes(element[1])){
+                    setStarships((prev) => {
+                        return [... prev, element[1]]
+                    })
+                } else if(element[0].includes("vehicles") && !vehicles.includes(element[1])){
+                    setVehicles((prev) => {
+                        return [... prev, element[1]]
+                    })
+                } else if(element[0].includes("species") && !species.includes(element[1])){
+                    setSpecies((prev) => {
+                        return [... prev, element[1]]
+                    })
+                }
+                
+            }
+        }
+    },[info])
+
+    const VerticalFeatureList = (title: string, array: string[]) => {
         return (
             <React.Fragment>
                 <ListTitleBox>
                 <ListTitle>{title}</ListTitle>
                 </ListTitleBox>
             <List>
-                <ListItem>AAAA</ListItem>
-                <ListItem>AAAA</ListItem>
-                <ListItem>AAAA</ListItem>
-                <ListItem>AAAA</ListItem>
-                <ListItem>AAAA</ListItem>
+                {array.map((el, index)=> {
+                    return(
+                        <ListItem key={index}>{el}</ListItem>
+                    )
+                })}
             </List>
             </React.Fragment>
         )
     }
 
-    const HorizontalFeatureList = (title: string) => {
+    const HorizontalFeatureList = (title: string, array: string[]) => {
         return (
             <React.Fragment>
                 <HorizontalListTitle>
                     <ListTitle>{title}</ListTitle>
                 </HorizontalListTitle>
             <List>
-                <ListItem>AAAA</ListItem>
-                <ListItem>AAAA</ListItem>
-                <ListItem>AAAA</ListItem>
-                <ListItem>AAAA</ListItem>
-                <ListItem>AAAA</ListItem>
+                {array.map((el, index)=> {
+                    return(
+                        <ListItem key={index}>{el}</ListItem>
+                    )
+                })}
             </List>
             </React.Fragment>
         )
@@ -118,16 +156,25 @@ export default function FilmPageListInfo(props: any){
             {
                 !isHorizontal &&
                 <VerticalListsContainer>
-                    {VerticalFeatureList('Characters')}
+                    {VerticalFeatureList('Characters', characters)}
+                    {VerticalFeatureList('Planets', planets)}
+                    {VerticalFeatureList('Starships', starships)}
+                    {VerticalFeatureList('Vehicles', vehicles)}
+                    {VerticalFeatureList('Species', species)}
+                    <FinalSpace></FinalSpace>                  
                 </VerticalListsContainer>
             }
             {
                 isHorizontal &&
                 <HorizontalListsContainer>
                     <ListsInsideContainer>
-                        {HorizontalFeatureList('Characters')}
+                        {HorizontalFeatureList('Characters', characters)}
+                        {HorizontalFeatureList('Planets', planets)}
                     </ListsInsideContainer>
                     <ListsInsideContainer>
+                    {HorizontalFeatureList('Starships', starships)}
+                        {HorizontalFeatureList('Vehicles', vehicles)}
+                        {HorizontalFeatureList('Species', species)} 
                     </ListsInsideContainer>
                 </HorizontalListsContainer>
             }
