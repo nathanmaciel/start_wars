@@ -164,7 +164,7 @@ export default function FilmPageHeader(props: any){
                     <DesktopFilmTitle>
                         { title?  Title : <LoadingAnimation></LoadingAnimation>}
                     </DesktopFilmTitle>
-                    <DesktopOpeningCrawl>
+                    <DesktopOpeningCrawl className="opCrawl">
                         { title && OpeningCrawl}
                     </DesktopOpeningCrawl>
                 </DesktopHeaderContainer>

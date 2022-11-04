@@ -109,6 +109,7 @@ export default function AllFilms(){
                     filmsList.map((element, index) => {
                         return(
                             <EachFilm 
+                            id="each-film"
                             key={index}
                             isHorizontal={isHorizontal} 
                             filmName={element.name} 
